@@ -248,6 +248,9 @@ try {
             $userId = $_POST['user_id'] ?? '';
             echo json_encode($post->getPostHistory($userId));
             break;
+            case 'getAllPosts':
+                echo json_encode($post->getAllPosts());
+                break;
 
         case 'getLikesCount':
             $postId = $_POST['post_id'] ?? '';

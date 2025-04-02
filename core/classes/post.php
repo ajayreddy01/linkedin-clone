@@ -80,6 +80,23 @@ class Post {
             return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
         }
     }
+    public function getAllPosts() {
+        try {
+            $query = "
+                SELECT p.post_id, p.user_id, p.content, p.media_url, p.created_at, 
+                       u.first_name, u.last_name, u.profile_picture_url
+                FROM Posts p
+                JOIN Users u ON p.user_id = u.user_id
+                ORDER BY p.created_at DESC
+            ";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $posts;
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+        }
+    }
 
     // Get likes count of a post
     public function getLikesCount($postId) {

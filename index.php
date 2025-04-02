@@ -1,72 +1,71 @@
-
 <!doctype html>
-<?php 
+<?php
 require 'core/init.php';
-if($user->isloggedin() === false){
+if ($user->isloggedin() === false) {
   header('Location: ../login.php');
 }
 $user_data = $user->getuserdata($_SESSION['user_id']);
 ?>
 <html
-    lang="en"
-    class="light-style layout-menu-fixed layout-compact"
-    dir="ltr"
-    data-theme="theme-default"
-    data-assets-path="../../assets/"
-    data-template="horizontal-menu-template-no-customizer"
-    data-style="light">
+  lang="en"
+  class="light-style layout-menu-fixed layout-compact"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../assets/"
+  data-template="horizontal-menu-template-no-customizer"
+  data-style="light">
 
 <head>
-    <meta charset="utf-8" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Linkedin Clone</title>
+  <title>Linkedin Clone</title>
 
-    <meta name="description" content="" />
+  <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+  <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
+  <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
+  <link rel="stylesheet" href="../../assets/css/demo.css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
+  <!-- Page CSS -->
 
-    <!-- Helpers -->
-    <script src="../../assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../assets/js/config.js"></script>
+  <!-- Helpers -->
+  <script src="../../assets/vendor/js/helpers.js"></script>
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script src="../../assets/js/config.js"></script>
 </head>
 
 <body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
-        <div class="layout-container">
-            <!-- Navbar -->
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
+    <div class="layout-container">
+      <!-- Navbar -->
 
-            <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+      <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
         <div class="container-xxl">
           <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
             <a href="index.html" class="app-brand-link gap-2">
@@ -135,7 +134,7 @@ $user_data = $user->getuserdata($_SESSION['user_id']);
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <ul class="navbar-nav flex-row align-items-center ms-auto">
-              
+
 
               <li class="nav-item me-2 me-xl-0">
                 <a class="nav-link search-toggler" href="chat.php">
@@ -361,10 +360,10 @@ $user_data = $user->getuserdata($_SESSION['user_id']);
                   data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     <img src="<?php if (!empty($user_data->profile_picture_url)) {
-                                        echo $user_data->profile_picture_url;
-                                      } else {
-                                        echo '../../assets/img/avatars/1.png';
-                                      } ?>" alt class="w-px-40 h-auto rounded-circle" />
+                                echo $user_data->profile_picture_url;
+                              } else {
+                                echo '../../assets/img/avatars/1.png';
+                              } ?>" alt class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -412,58 +411,105 @@ $user_data = $user->getuserdata($_SESSION['user_id']);
           </div>
 
           <!-- Search Small Screens -->
-          
+
         </div>
       </nav>
 
-            <!-- / Navbar -->
+      <!-- / Navbar -->
 
-            <!-- Layout container -->
-            <div class="layout-page">
-                <!-- Content wrapper -->
-                <div class="content-wrapper">
+      <!-- Layout container -->
+      <div class="layout-page">
+        <!-- Content wrapper -->
+        <div class="content-wrapper  ">
+          
+          <div class="row mt-4 " id="feed-list">
+            <!-- Posts will be populated here -->
+            <?php
+            $allPosts = $post->getAllPosts(); // should return an array of associative arrays
+            ?>
 
-
-                    <div class="content-backdrop fade"></div>
-                </div>
-                <!--/ Content wrapper -->
+            <div class="row" id="posts-list">
+              <?php if (!empty($allPosts) && is_array($allPosts)): ?>
+                <?php foreach ($allPosts as $post): ?>
+                  <div class="col-xl-3 col-lg-4 col-md-4 mb-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="dropdown btn-pinned">
+                          <button type="button" class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                              <a class="dropdown-item edit-post"
+                                href="javascript:void(0);"
+                                data-post-id="<?= htmlspecialchars($post['post_id']) ?>"
+                                data-content="<?= htmlspecialchars(json_encode($post['content'])) ?>"
+                                data-media-url="<?= htmlspecialchars($post['media_url']) ?>">
+                                Edit
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="mx-auto my-4 text-center">
+                          <img src="<?= !empty($post['profile_picture_url']) ? htmlspecialchars($post['profile_picture_url']) : '../../assets/img/avatars/3.png' ?>"
+                            alt="Avatar" class="rounded-circle w-px-100 h-px-100">
+                        </div>
+                        <h5 class="mb-0 card-title text-center"><?= htmlspecialchars($post['first_name'] . ' ' . $post['last_name']) ?></h5>
+                        <div class="post-content my-4">
+                          <?= nl2br(htmlspecialchars($post['content'])) ?>
+                        </div>
+                        <small class="text-muted"><?= date("n/j/Y, g:i:s A", strtotime($post['created_at'])) ?></small>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <p>No posts found.</p>
+              <?php endif; ?>
             </div>
 
-            <!--/ Layout container -->
+          </div>
+          <div class="content-backdrop fade"></div>
         </div>
+        <!--/ Content wrapper -->
+      </div>
+
+      <!--/ Layout container -->
     </div>
+  </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+  <!-- Overlay -->
+  <div class="layout-overlay layout-menu-toggle"></div>
 
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-    <div class="drag-target"></div>
+  <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+  <div class="drag-target"></div>
 
-    <!--/ Layout wrapper -->
+  <!--/ Layout wrapper -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="../../assets/vendor/js/menu.js"></script>
+  <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../../assets/vendor/libs/popper/popper.js"></script>
+  <script src="../../assets/vendor/js/bootstrap.js"></script>
+  <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+  <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+  <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+  <script src="../../assets/vendor/js/menu.js"></script>
 
-    <!-- endbuild -->
+  <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+  <!-- Vendors JS -->
+  <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+  <!-- Main JS -->
+  <script src="../../assets/js/main.js"></script>
 
-    <!-- Page JS -->
-    <script src="../../assets/js/dashboards-crm.js"></script>
-    
+  <!-- Page JS -->
+  <script src="../../assets/js/dashboards-crm.js"></script>
+
+
 </body>
 
 </html>
