@@ -1,73 +1,43 @@
 <!doctype html>
-
-<?php 
+<?php
 require 'core/init.php';
-if($user->isloggedin() === false){
+if ($user->isloggedin() === false) {
   header('Location: ../login.php');
-}?>
-<html
-  lang="en"
-  class="light-style layout-menu-fixed layout-compact"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../../assets/"
-  data-template="horizontal-menu-template"
-  data-style="light">
+}
+$user_data = $user->getuserdata($_SESSION['user_id']);
+?>
+<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="horizontal-menu-template" data-style="light">
 
 <head>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
   <title>User Profile - Posts | Linkedin Clone</title>
-
   <meta name="description" content="" />
-
-  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet" />
-
-  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
   <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
   <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
-
-  <!-- Core CSS -->
   <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
   <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
   <link rel="stylesheet" href="../../assets/css/demo.css" />
-
-  <!-- Vendors CSS -->
   <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
   <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
-  <!-- Page CSS -->
   <link rel="stylesheet" href="../../assets/vendor/css/pages/page-profile.css" />
-
-  <!-- Helpers -->
   <script src="../../assets/vendor/js/helpers.js"></script>
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
   <script src="../../assets/vendor/js/template-customizer.js"></script>
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../../assets/js/config.js"></script>
 </head>
 
 <body>
-  <!-- Layout wrapper -->
   <div class="layout-wrapper layout-navbar-full layout-horizontal layout-without-menu">
     <div class="layout-container">
-      <!-- Navbar -->
-      <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+    <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
         <div class="container-xxl">
           <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
             <a href="index.html" class="app-brand-link gap-2">
@@ -136,13 +106,7 @@ if($user->isloggedin() === false){
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- Search -->
-              <li class="nav-item navbar-search-wrapper me-2 me-xl-0">
-                <a class="nav-link search-toggler" href="javascript:void(0);">
-                  <i class="bx bx-search bx-md"></i>
-                </a>
-              </li>
-              <!-- /Search -->
+              
 
               <li class="nav-item me-2 me-xl-0">
                 <a class="nav-link search-toggler" href="chat.php">
@@ -367,7 +331,11 @@ if($user->isloggedin() === false){
                   href="javascript:void(0);"
                   data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src="<?php if (!empty($user_data->profile_picture_url)) {
+                                        echo $user_data->profile_picture_url;
+                                      } else {
+                                        echo '../../assets/img/avatars/1.png';
+                                      } ?>" alt class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -376,15 +344,15 @@ if($user->isloggedin() === false){
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src="<?php if (!empty($_SESSION['user_data']['profile_picture_url'])) {
-                                        echo $_SESSION['user_data']['profile_picture_url'];
+                            <img src="<?php if (!empty($user_data->profile_picture_url)) {
+                                        echo $user_data->profile_picture_url;
                                       } else {
                                         echo '../../assets/img/avatars/1.png';
                                       } ?>" alt class="w-px-40 h-auto rounded-circle" />
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <h6 class="mb-0"><?php echo $_SESSION['user_data']['first_name'] . '' . $_SESSION['user_data']['last_name']; ?></h6>
+                          <h6 class="mb-0"><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h6>
 
                         </div>
                       </div>
@@ -415,29 +383,17 @@ if($user->isloggedin() === false){
           </div>
 
           <!-- Search Small Screens -->
-          <div class="navbar-search-wrapper search-input-wrapper container-xxl d-none">
-            <input
-              type="text"
-              class="form-control search-input border-0"
-              placeholder="Search..."
-              aria-label="Search..." />
-            <i class="bx bx-x bx-md search-toggler cursor-pointer"></i>
-          </div>
+          
         </div>
       </nav>
-
-      <!-- / Navbar -->
-
-      <!-- Layout container -->
+      <!-- Main Content -->
       <div class="layout-page">
-        <!-- Content wrapper -->
         <div class="content-wrapper">
-
-          <!-- Content -->
-
           <div class="container-xxl flex-grow-1 container-p-y">
-            <!-- Header -->
-            <div class="row">
+
+            <!-- User Profile and Post Controls -->
+             <!-- Header -->
+             <div class="row">
               <div class="col-12">
                 <div class="card mb-6">
                   <div class="user-profile-header-banner">
@@ -446,11 +402,11 @@ if($user->isloggedin() === false){
                   <div class="user-profile-header d-flex flex-column flex-lg-row text-sm-start text-center mb-8">
                     <div class="flex-shrink-0 mt-1 mx-sm-0 mx-auto">
                       <img
-                        src="<?php if (!empty($_SESSION['user_data']['profile_picture_url'])) {
-                                echo $_SESSION['user_data']['profile_picture_url'];
-                              } else {
-                                echo '../../assets/img/avatars/1.png';
-                              } ?>"
+                        src="<?php if (!empty($user_data->profile_picture_url)) {
+                                        echo $user_data->profile_picture_url;
+                                      } else {
+                                        echo '../../assets/img/avatars/1.png';
+                                      } ?>"
                         alt="user image"
                         class="d-block h-auto ms-0 ms-sm-6 rounded-3 user-profile-img" />
                     </div>
@@ -458,17 +414,17 @@ if($user->isloggedin() === false){
                       <div
                         class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-5 flex-md-row flex-column gap-4">
                         <div class="user-profile-info">
-                          <h4 class="mb-2 mt-lg-7">John Doe</h4>
+                          <h4 class="mb-2 mt-lg-7"><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h4>
                           <ul
                             class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-4 mt-4">
                             <li class="list-inline-item">
-                              <i class="bx bx-palette me-2 align-top"></i><span class="fw-medium">UX Designer</span>
+                              <i class="bx bx-palette me-2 align-top"></i><span class="fw-medium"><?php echo $user_data->headline; ?></span>
                             </li>
                             <li class="list-inline-item">
-                              <i class="bx bx-map me-2 align-top"></i><span class="fw-medium">Vatican City</span>
+                              <i class="bx bx-map me-2 align-top"></i><span class="fw-medium"><?php echo $user_data->industry; ?></span>
                             </li>
                             <li class="list-inline-item">
-                              <i class="bx bx-calendar me-2 align-top"></i><span class="fw-medium"> Joined April 2021</span>
+                              <i class="bx bx-calendar me-2 align-top"></i><span class="fw-medium"> <?php echo $user_data->contact_info; ?></span>
                             </li>
                           </ul>
                         </div>
@@ -482,430 +438,63 @@ if($user->isloggedin() === false){
               </div>
             </div>
             <!--/ Header -->
-
-            <!-- Navbar pills -->
             <div class="row">
               <div class="col-md-8">
                 <div class="nav-align-top">
                   <ul class="nav nav-pills flex-column flex-sm-row mb-6">
+                    <li class="nav-item"><a class="nav-link" href="profile.php"><i class="bx bx-user bx-sm me-1_5"></i> Profile</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="post.php"><i class="bx bx-grid-alt bx-sm me-1_5"></i> Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="connections.php"><i class="bx bx-link-alt bx-sm me-1_5"></i> Connections</a></li>
                     <li class="nav-item">
-                      <a class="nav-link" href="profile.php"><i class="bx bx-user bx-sm me-1_5"></i> Profile</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="post.php"><i class="bx bx-grid-alt bx-sm me-1_5"></i> Posts</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="connections.php"><i class="bx bx-link-alt bx-sm me-1_5"></i> Connections</a>
-                    </li>
-                    <li class="nav-item">
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpost">
-                        + Add Post
-                      </button>
-
-
-
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">+ Add Post</button>
                     </li>
                   </ul>
                 </div>
               </div>
-
             </div>
-            <!--/ Navbar pills -->
+
             <!-- Modal -->
-            <div class="modal fade" id="addpost" tabindex="-1" aria-hidden="true" style="display: none;">
+            <div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Create a Post</h5>
+                    <h5 class="modal-title" id="postModalLabel">Create a Post</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form id="createPostForm">
-                      <!-- Full Editor -->
-                      <div class="col-12">
-                        <div class="">
-                          <div class="">
-                            <div id="full-editor">
-                              <div class="mb-3">
-                                <h6>Content</h6>
-                                <textarea class="form-control" name="content" rows="4" required placeholder="Write your post here..."></textarea>
-                              </div>
-                              <div class="mb-3">
-                                <h6>Media URL (Optional)</h6>
-                                
-                              </div>
-                              <!-- Hidden field for user_id -->
-                              <input type="hidden" name="user_id" value="1"> <!-- Replace with actual user ID -->
-                            </div>
-                          </div>
-                        </div>
+                    <form id="postForm">
+                      <div class="mb-3">
+                        <h6>Content</h6>
+                        <div id="quillEditor" style="height: 200px;"></div>
+                        <input type="hidden" name="content" id="postContent">
                       </div>
-                      <!-- /Full Editor -->
+                      <input type="hidden" name="user_id" value="<?php echo $user_data->user_id; ?>">
+                      <input type="hidden" name="post_id" id="postId">
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="createPostForm" class="btn btn-primary">Post</button>
+                    <button type="submit" form="postForm" class="btn btn-primary" id="submitPostBtn">Post</button>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- Connection Cards -->
-            <div class="row g-6">
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/3.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Mark Gilbert</h5>
-                    <span>UI Designer</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-secondary">Figma</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-warning">Sketch</span></a>
-                    </div>
 
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">18</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">834</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">129</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-4"><i class="bx bx-user-check bx-sm me-2"></i>Connected</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/12.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Eugenia Parsons</h5>
-                    <span>Developer</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-danger">Angular</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-info">React</span></a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">112</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">23.1k</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">1.28k</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-label-primary d-flex align-items-center me-4"><i class="bx bx-user-plus bx-sm me-2"></i>Connect</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/5.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Francis Byrd</h5>
-                    <span>Developer</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-primary">React</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-info">HTML</span></a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">32</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">1.25k</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">890</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-label-primary d-flex align-items-center me-4"><i class="bx bx-user-plus bx-sm me-2"></i>Connect</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/18.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Leon Lucas</h5>
-                    <span>UI/UX Designer</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-secondary">Figma</span></a>
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-warning">Sketch</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-primary">Photoshop</span></a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">86</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">12.4k</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">890</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-label-primary d-flex align-items-center me-4"><i class="bx bx-user-plus bx-sm me-2"></i>Connect</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/9.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Jayden Rogers</h5>
-                    <span>Full Stack Developer</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-info">React</span></a>
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-warning">Angular</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-success">Node.js</span></a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">244</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">23.8k</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">2.14k</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-4"><i class="bx bx-user-check bx-sm me-2"></i>Connected</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="card">
-                  <div class="card-body text-center">
-                    <div class="dropdown btn-pinned">
-                      <button
-                        type="button"
-                        class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                      </ul>
-                    </div>
-                    <div class="mx-auto my-6">
-                      <img
-                        src="../../assets/img/avatars/10.png"
-                        alt="Avatar Image"
-                        class="rounded-circle w-px-100 h-px-100" />
-                    </div>
-                    <h5 class="mb-0 card-title">Jeanette Powell</h5>
-                    <span>SEO</span>
-                    <div class="d-flex align-items-center justify-content-center my-6 gap-2">
-                      <a href="javascript:;" class="me-2"><span class="badge bg-label-secondary">Analysis</span></a>
-                      <a href="javascript:;"><span class="badge bg-label-success">Node.js</span></a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around mb-8">
-                      <div>
-                        <h5 class="mb-0">32</h5>
-                        <span>Projects</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">1.28k</h5>
-                        <span>Tasks</span>
-                      </div>
-                      <div>
-                        <h5 class="mb-0">1.27k</h5>
-                        <span>Connections</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center">
-                      <a href="javascript:;" class="btn btn-label-primary d-flex align-items-center me-4"><i class="bx bx-user-plus bx-sm me-2"></i>Connect</a>
-                      <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i class="bx bx-envelope bx-md"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+            <!-- Posts -->
+            <div class="row g-6" id="posts-list">
+              <!-- Posts will be populated here -->
             </div>
-            <!--/ Connection Cards -->
           </div>
-          <!--/ Content -->
-
-
-
           <div class="content-backdrop fade"></div>
         </div>
-        <!--/ Content wrapper -->
       </div>
-
-      <!--/ Layout container -->
     </div>
   </div>
 
-  <!-- Overlay -->
+  <!-- JS Libraries -->
   <div class="layout-overlay layout-menu-toggle"></div>
-
-  <!-- Drag Target Area To SlideIn Menu On Small Screens -->
   <div class="drag-target"></div>
-
-  <!--/ Layout wrapper -->
-
-  <!-- Core JS -->
-  <!-- build:js assets/vendor/js/core.js -->
-
   <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
   <script src="../../assets/vendor/libs/popper/popper.js"></script>
   <script src="../../assets/vendor/js/bootstrap.js"></script>
@@ -914,22 +503,147 @@ if($user->isloggedin() === false){
   <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
   <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
   <script src="../../assets/vendor/js/menu.js"></script>
-
-  <!-- endbuild -->
-
-  <!-- Vendors JS -->
-
-  <!-- Main JS -->
-  <script src="../../assets/js/main.js"></script>
-  <!-- Vendors JS -->
   <script src="../../assets/vendor/libs/quill/katex.js"></script>
   <script src="../../assets/vendor/libs/quill/quill.js"></script>
-
-
-  <!-- Page JS -->
+  <script src="../../assets/js/main.js"></script>
   <script src="../../assets/js/forms-editors.js"></script>
 
-  <!-- Page JS -->
+  <!-- Custom Script -->
+  <script>
+    const currentUserId = <?php echo json_encode($user_data->user_id); ?>;
+    let quill;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{
+              'header': [1, 2, false]
+            }],
+            ['bold', 'italic', 'underline'],
+            ['link'],
+            [{
+              'list': 'ordered'
+            }, {
+              'list': 'bullet'
+            }],
+            ['clean']
+          ]
+        }
+      });
+
+      quill.on('text-change', function() {
+        document.getElementById('postContent').value = quill.root.innerHTML;
+      });
+
+      loadPosts();
+    });
+
+    // Load Posts
+    function loadPosts() {
+      fetch('/api/index.php?action=getPostHistory', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `user_id=${encodeURIComponent(currentUserId)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          const postsList = document.getElementById('posts-list');
+          postsList.innerHTML = '';
+          if (data.success && data.posts.length > 0) {
+            data.posts.forEach(post => {
+              postsList.innerHTML += createPostCard(post);
+            });
+          } else {
+            postsList.innerHTML = '<p>No posts found.</p>';
+          }
+        })
+        .catch(error => console.error('Error loading posts:', error));
+    }
+
+    // Create Post Card (Text-only)
+    function createPostCard(post) {
+      return `
+        <div class="col-xl-3 col-lg-4 col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="dropdown btn-pinned">
+                <button type="button" class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item edit-post" href="javascript:void(0);" data-post-id="${post.post_id}" data-content='${JSON.stringify(post.content)}'>Edit</a></li>
+                </ul>
+              </div>
+              <div class="mx-auto my-6 text-center">
+                <img src="<?php echo !empty($user_data->profile_picture_url) ? $user_data->profile_picture_url : '../../assets/img/avatars/3.png'; ?>" alt="Avatar" class="rounded-circle w-px-100 h-px-100" />
+              </div>
+              <h5 class="mb-0 card-title text-center"><?php echo $user_data->first_name . ' ' . $user_data->last_name; ?></h5>
+              <div class="post-content my-4">${post.content}</div>
+              <small class="text-muted">${new Date(post.created_at).toLocaleString()}</small>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Handle Form Submission
+    document.getElementById('postForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const postId = document.getElementById('postId').value;
+      const content = document.getElementById('postContent').value;
+      const url = postId ? '/api/index.php?action=updatePost' : '/api/index.php?action=createPost';
+      const body = postId ?
+        `post_id=${encodeURIComponent(postId)}&content=${encodeURIComponent(content)}` :
+        `user_id=${encodeURIComponent(currentUserId)}&content=${encodeURIComponent(content)}`;
+
+      fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: body
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            $('#postModal').modal('hide');
+            loadPosts();
+            resetModal();
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => console.error('Error submitting post:', error));
+    });
+
+    // Edit Post
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('edit-post')) {
+        const postId = e.target.getAttribute('data-post-id');
+        const content = e.target.getAttribute('data-content');
+
+        document.getElementById('postModalLabel').textContent = 'Edit Post';
+        document.getElementById('postId').value = postId;
+        quill.root.innerHTML = content;
+        document.getElementById('postContent').value = content;
+        $('#postModal').modal('show');
+      }
+    });
+
+    // Reset Modal
+    function resetModal() {
+      document.getElementById('postModalLabel').textContent = 'Create a Post';
+      document.getElementById('postId').value = '';
+      quill.root.innerHTML = '';
+      document.getElementById('postContent').value = '';
+    }
+
+    $('#postModal').on('hidden.bs.modal', resetModal);
+  </script>
 </body>
 
 </html>

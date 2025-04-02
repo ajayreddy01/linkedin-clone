@@ -43,7 +43,7 @@ class User {
             $user = $stmt->fetch(PDO::FETCH_OBJ);
             if ($user && password_verify($password, $user->password_hash)) {
                 $_SESSION['user_id'] = $user->user_id;
-                $_SESSION['user_data'] = $user;
+                
                 return ['success' => true, 'user_id' => $user->user_id, 'message' => 'Login successful'];
             }
             return ['success' => false, 'message' => 'Invalid email or password'];
@@ -74,6 +74,16 @@ class User {
         }
     }
 
+    public function getuserdata($userId){
+        try {
+            $query = "SELECT* FROM Users WHERE user_id = :user_id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':user_id' => $userId]);
+            return  $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
+        }
+    }
     // Add a skill
     public function addSkill($userId, $skillName, $proficiencyLevel) {
         try {
@@ -114,6 +124,7 @@ class User {
             return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
         }
     }
+
 
     // Delete a skill
     public function deleteSkill($userId, $skillId) {
@@ -395,6 +406,28 @@ class User {
             return true;
         }else{
             return false;
+        }
+    }
+    public function recommendUsers($userId, $limit = 3) {
+        try {
+            // Get users not already connected to the current user
+            $query = "
+                SELECT u.user_id, u.first_name, u.last_name, u.profile_picture_url, u.headline
+                FROM Users u
+                LEFT JOIN Connections c ON u.user_id = c.connected_user_id AND c.user_id = :userId AND c.status = 'accepted'
+                WHERE u.user_id != :userId AND c.connection_id IS NULL
+                ORDER BY RAND() -- Replace with better logic (e.g., mutual connections, activity)
+                LIMIT :limit
+            ";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return ['success' => true, 'users' => $users, 'message' => 'Recommended users fetched'];
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
         }
     }
 }

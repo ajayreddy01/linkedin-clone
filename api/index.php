@@ -38,8 +38,8 @@ try {
         case 'login':
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
-            $result =$user->login($email, $password);
-             if ($result['success']) {
+            $result = $user->login($email, $password);
+            if ($result['success']) {
                 header('Location: ../index.php');
                 exit; // Stop execution after redirect
             } else {
@@ -263,7 +263,11 @@ try {
             $postId = $_POST['post_id'] ?? '';
             echo json_encode($post->getCommentsHistory($postId));
             break;
-
+        case 'recommendUsers':
+            $userId = $_POST['user_id'] ?? '';
+            $limit = $_POST['limit'] ?? 3; // Default to 3 recommendations
+            echo json_encode($user->recommendUsers($userId, $limit));
+            break;
         default:
             echo json_encode(['error' => 'Invalid action']);
             break;

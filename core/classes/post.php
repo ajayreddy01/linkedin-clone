@@ -22,7 +22,7 @@ class Post {
             return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
         }
     }
-
+   
     // Like a post
     public function likePost($userId, $postId) {
         try {
@@ -171,6 +171,35 @@ class Post {
             return $stmt->rowCount() > 0 
                 ? ['success' => true, 'message' => 'Post deleted successfully'] 
                 : ['success' => false, 'message' => 'Post not found'];
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
+        }
+    }
+   
+    
+    public function updatePost($postId, $content, $mediaUrl = '') {
+        try {
+            $query = "UPDATE Posts SET content = :content, media_url = :media_url WHERE post_id = :post_id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute(['post_id' => $postId, 'content' => $content, 'media_url' => $mediaUrl]);
+            return ['success' => true, 'message' => 'Post updated'];
+        } catch (PDOException $e) {
+            return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
+        }
+    }
+    
+    public function getUserPosts($userId) {
+        try {
+            $query = "
+                SELECT p.post_id, p.content, p.media_url, p.created_at, u.first_name, u.last_name, u.profile_picture_url
+                FROM Posts p
+                JOIN Users u ON p.user_id = u.user_id
+                WHERE p.user_id = :user_id
+                ORDER BY p.created_at DESC
+            ";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute(['user_id' => $userId]);
+            return ['success' => true, 'posts' => $stmt->fetchAll(PDO::FETCH_ASSOC)];
         } catch (PDOException $e) {
             return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
         }
