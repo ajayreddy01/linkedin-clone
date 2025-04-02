@@ -1,3 +1,4 @@
+<?php include 'core/init.php';?>
 <!doctype html>
 
 <html
@@ -461,6 +462,7 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/dashboards-crm.js"></script>
+    
 </body>
 
 </html>

@@ -1,5 +1,10 @@
 <!doctype html>
-
+<?php
+require 'core/init.php'; 
+if($user->isloggedin() === false){
+    header('Location: ../login.php');
+}
+?>
 <html
     lang="en"
     class="light-style layout-menu-fixed layout-compact"
@@ -15,7 +20,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo : Chat - Apps | sneat - Bootstrap Dashboard PRO</title>
+    <title>Chat | Linkedin Clone</title>
 
     <meta name="description" content="" />
 
@@ -147,11 +152,11 @@
                             </li>
 
                             <li class="nav-item me-2 me-xl-0">
-                                <a class="nav-link search-toggler" href="post.php">
-                                <i class='bx bx-add-to-queue'></i>
-                                </a>
-                            </li>                            
-
+                                <button class="nav-link btn"  type="button" data-bs-toggle="modal" data-bs-target="#addpost">
+                                    <i class='bx bx-add-to-queue'></i>
+                                </button>
+                            </li>
+                            
                             <!-- Notification -->
                             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
                                 <a
@@ -372,12 +377,16 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="<?php if(!empty($_SESSION['user_data']['profile_picture_url'])){echo $_SESSION['user_data']['profile_picture_url']; }else{echo '../../assets/img/avatars/1.png';}?>" alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="<?php if (!empty($_SESSION['user_data']['profile_picture_url'])) {
+                                                                        echo $_SESSION['user_data']['profile_picture_url'];
+                                                                    } else {
+                                                                        echo '../../assets/img/avatars/1.png';
+                                                                    } ?>" alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <h6 class="mb-0"><?php echo $_SESSION['user_data']['first_name'].''.$_SESSION['user_data']['last_name'];?></h6>
-                                                
+                                                    <h6 class="mb-0"><?php echo $_SESSION['user_data']['first_name'] . '' . $_SESSION['user_data']['last_name']; ?></h6>
+
                                                 </div>
                                             </div>
                                         </a>
@@ -429,6 +438,8 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
+                    
+                            
                         <div class="app-chat card overflow-hidden">
                             <div class="row g-0">
                                 <!-- Sidebar Left -->
@@ -1136,6 +1147,8 @@ Hey there, we’re just writing to let you know that you’ve been subscribed to
 
     <!-- Page JS -->
     <script src="../../assets/js/app-chat.js"></script>
+   
+
 </body>
 
 </html>

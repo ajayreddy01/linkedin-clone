@@ -1,5 +1,10 @@
 <!doctype html>
 
+<?php 
+require 'core/init.php';
+if($user->isloggedin() === false){
+  header('Location: ../login.php');
+}?>
 <html
   lang="en"
   class="light-style layout-menu-fixed layout-compact"
@@ -14,7 +19,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo : User Profile - Profile | sneat - Bootstrap Dashboard PRO</title>
+    <title>User Profile - Profile | Linkedin Clone</title>
 
     <meta name="description" content="" />
 
@@ -439,7 +444,7 @@
                     <div class="user-profile-header d-flex flex-column flex-lg-row text-sm-start text-center mb-8">
                       <div class="flex-shrink-0 mt-1 mx-sm-0 mx-auto">
                         <img
-                          src="../../assets/img/avatars/1.png"
+                          src="<?php if(!empty($_SESSION['user_data']['profile_picture_url'])){echo $_SESSION['user_data']['profile_picture_url']; }else{echo '../../assets/img/avatars/1.png';}?>"
                           alt="user image"
                           class="d-block h-auto ms-0 ms-sm-6 rounded-3 user-profile-img" />
                       </div>
@@ -490,7 +495,7 @@
                         >
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="connections.html"
+                        <a class="nav-link" href="connections.php"
                           ><i class="bx bx-link bx-sm me-1_5"></i> Connections</a
                         >
                       </li>
@@ -995,5 +1000,6 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/app-user-view-account.js"></script>
+    
   </body>
 </html>

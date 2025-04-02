@@ -1,5 +1,10 @@
 <!doctype html>
 
+<?php 
+require 'core/init.php';
+if($user->isloggedin() === false){
+  header('Location: ../login.php');
+}?>
 <html
   lang="en"
   class="light-style layout-menu-fixed layout-compact"
@@ -14,7 +19,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo : User Profile - Connections | sneat - Bootstrap Dashboard PRO</title>
+    <title>User Profile - Connections | Linkedin Clone</title>
 
     <meta name="description" content="" />
 
@@ -499,23 +504,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                   <div class="card">
                     <div class="card-body text-center">
-                      <div class="dropdown btn-pinned">
-                        <button
-                          type="button"
-                          class="btn btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow p-4"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          <i class="bx bx-dots-vertical-rounded bx-md text-muted"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                          <li>
-                            <hr class="dropdown-divider" />
-                          </li>
-                          <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                        </ul>
-                      </div>
+                      
                       <div class="mx-auto my-6">
                         <img
                           src="../../assets/img/avatars/3.png"
@@ -888,6 +877,7 @@
 
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
+    
 
     <!-- Page JS -->
   </body>

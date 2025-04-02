@@ -1,5 +1,9 @@
 <!doctype html>
-
+<?php 
+require 'core/init.php';
+if($user->isloggedin() === true){
+  header('Location: ../index.php');
+}?>
 <html
   lang="en"
   class="light-style layout-wide customizer-hide"
@@ -8,146 +12,170 @@
   data-assets-path="../../assets/"
   data-template="horizontal-menu-template-no-customizer"
   data-style="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Register </title>
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <meta name="description" content="" />
+  <title>Register </title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+  <meta name="description" content="" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+  <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <!-- Vendor -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
+  <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
+  <link rel="stylesheet" href="../../assets/css/demo.css" />
 
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-auth.css" />
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+  <!-- Vendor -->
+  <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/form-validation.css" />
 
-    <!-- Helpers -->
-    <script src="../../assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../../assets/js/config.js"></script>
-  </head>
+  <!-- Page CSS -->
+  <!-- Page -->
+  <link rel="stylesheet" href="../../assets/vendor/css/pages/page-auth.css" />
 
-  <body>
-    <!-- Content -->
+  <!-- Helpers -->
+  <script src="../../assets/vendor/js/helpers.js"></script>
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script src="../../assets/js/config.js"></script>
+</head>
 
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register Card -->
-          <div class="card px-sm-6 px-0">
-            <div class="card-body">
-             
-              <h4 class="mb-1">Adventure starts here 🚀</h4>
-             
-              <form id="formAuthentication" class="mb-6" action="index.html" method="GET">
-                <div class="mb-6">
-                  <label for="username" class="form-label">Name</label>
+<body>
+  <!-- Content -->
+
+  <div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner">
+        <!-- Register Card -->
+        <div class="card px-sm-6 px-0">
+          <div class="card-body">
+
+            <h4 class="mb-1">Adventure starts here 🚀</h4>
+
+            <form id="formAuthentication" class="mb-6" action="/api/index.php?action=signup" method="POST">
+              <div class="mb-6">
+                <label for="first_name" class="form-label">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first_name"
+                  name="first_name"
+                  placeholder="Enter First Name"
+                  autofocus />
+              </div>
+              <div class="mb-6">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last_name"
+                  name="last_name"
+                  placeholder="Enter Last Name"
+                  autofocus />
+              </div>
+              <div class="mb-6">
+                <label for="username" class="form-label">User Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  placeholder="Enter your username"
+                  autofocus />
+              </div>
+              <div class="mb-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+              </div>
+              <div class="mb-6 form-password-toggle">
+                <label class="form-label" for="password">Password</label>
+                <div class="input-group input-group-merge">
                   <input
-                    type="text"
+                    type="password"
+                    id="password"
                     class="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Enter your username"
-                    autofocus />
+                    name="password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                    aria-describedby="password" />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                 </div>
-                <div class="mb-6">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                </div>
-                <div class="mb-6 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password" />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
+              </div>
 
-                <div class="my-8">
-                  <div class="form-check mb-0 ms-2">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                    <label class="form-check-label" for="terms-conditions">
-                      I agree to
-                      <a href="javascript:void(0);">privacy policy & terms</a>
-                    </label>
-                  </div>
+              <div class="my-8">
+                <div class="form-check mb-0 ms-2">
+                  <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                  <label class="form-check-label" for="terms-conditions">
+                    I agree to
+                    <a href="javascript:void(0);">privacy policy & terms</a>
+                  </label>
                 </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
-              </form>
+              </div>
+              <button class="btn btn-primary d-grid w-100">Sign up</button>
+            </form>
 
-              <p class="text-center">
-                <span>Already have an account?</span>
-                <a href="login.php">
-                  <span>Sign in instead</span>
-                </a>
-              </p>
+            <p class="text-center">
+              <span>Already have an account?</span>
+              <a href="login.php">
+                <span>Sign in instead</span>
+              </a>
+            </p>
 
-             
-            </div>
+
           </div>
-          <!-- Register Card -->
         </div>
+        <!-- Register Card -->
       </div>
     </div>
+  </div>
 
-    <!-- / Content -->
+  <!-- / Content -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../../assets/vendor/js/bootstrap.js"></script>
-    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="../../assets/vendor/js/menu.js"></script>
+  <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../../assets/vendor/libs/popper/popper.js"></script>
+  <script src="../../assets/vendor/js/bootstrap.js"></script>
+  <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+  <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+  <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+  <script src="../../assets/vendor/js/menu.js"></script>
 
-    <!-- endbuild -->
+  <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
+  <!-- Vendors JS -->
+  <script src="../../assets/vendor/libs/@form-validation/popular.js"></script>
+  <script src="../../assets/vendor/libs/@form-validation/bootstrap5.js"></script>
+  <script src="../../assets/vendor/libs/@form-validation/auto-focus.js"></script>
 
-    <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+  <!-- Main JS -->
+  <script src="../../assets/js/main.js"></script>
 
-    <!-- Page JS -->
-    <script src="../../assets/js/pages-auth.js"></script>
-  </body>
+  <!-- Page JS -->
+  <script src="../../assets/js/pages-auth.js"></script>
+
+
+</body>
+
 </html>

@@ -1,5 +1,10 @@
-<!doctype html>
 
+<!doctype html>
+<?php 
+require 'core/init.php';
+if($user->isloggedin() === false){
+  header('Location: ../login.php');
+}?>
 <html
     lang="en"
     class="light-style layout-menu-fixed layout-compact"
@@ -461,6 +466,7 @@
 
     <!-- Page JS -->
     <script src="../../assets/js/dashboards-crm.js"></script>
+    
 </body>
 
 </html>

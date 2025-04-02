@@ -1,5 +1,5 @@
 <?php
-require '../includes/init.php'; // Include initialization (e.g., PDO connection, class definitions)
+require '../core/init.php'; // Include initialization (e.g., PDO connection, class definitions)
 
 header('Content-Type: application/json');
 
@@ -8,9 +8,7 @@ $action = $_GET['action'] ?? '';
 
 try {
     // Instantiate classes (assuming they’re available via init.php)
-    $user = new User($pdo);
-    $message = new Message($pdo);
-    $post = new Post($pdo);
+
 
     // Define the API actions
     switch ($action) {
@@ -25,13 +23,30 @@ try {
             $headline = $_POST['headline'] ?? null;
             $bio = $_POST['bio'] ?? null;
             $location = $_POST['location'] ?? null;
-            echo json_encode($user->signup($username, $email, $password, $firstName, $lastName, $headline, $bio, $location));
+            //echo json_encode($user->signup($username, $email, $password, $firstName, $lastName, $headline, $bio, $location));
+            $result = $user->signup($username, $email, $password, $firstName, $lastName, $headline, $bio, $location);
+            if ($result['success']) {
+                header('Location: ../index.php');
+                exit; // Stop execution after redirect
+            } else {
+                // Pass error message back to index.php (or another error page)
+                header('Location: ../signup.php?error=' . urlencode($result['message']));
+                exit;
+            }
             break;
 
         case 'login':
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
-            echo json_encode($user->login($email, $password));
+            $result =$user->login($email, $password);
+             if ($result['success']) {
+                header('Location: ../index.php');
+                exit; // Stop execution after redirect
+            } else {
+                // Pass error message back to index.php (or another error page)
+                header('Location: ../login.php?error=' . urlencode($result['message']));
+                exit;
+            }
             break;
 
         case 'updateProfile':
@@ -260,4 +275,3 @@ try {
     // Handle general errors
     echo json_encode(['error' => 'General error: ' . $e->getMessage()]);
 }
-?>

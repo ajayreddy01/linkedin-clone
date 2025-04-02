@@ -1,5 +1,9 @@
 <!doctype html>
-
+<?php 
+require 'core/init.php';
+if($user->isloggedin() === true){
+  header('Location: ../index.php');
+}?>
 <html
   lang="en"
   class="light-style layout-wide customizer-hide"
@@ -68,7 +72,7 @@
               
               <p class="mb-6">Please sign-in to your account and start the adventure</p>
 
-              <form id="formAuthentication" class="mb-6" action="index.html" method="GET">
+              <form id="formAuthentication" class="mb-6" action="/api/index.php?action=login" method="POST">
                 <div class="mb-6">
                   <label for="email" class="form-label">Email or Username</label>
                   <input

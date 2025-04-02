@@ -342,10 +342,11 @@ class User {
         }
     }
 
+
     // Get user connections
     public function getConnections($userId) {
         try {
-            $query = "SELECT c.connection_id, c.connected_user_id, u.username, u.first_name, u.last_name, c.status 
+            $query = "SELECT c.connection_id, c.connected_user_id, u.username, u.first_name, u.last_name, c.status , u.profile_picture_url 
                       FROM Connections c JOIN Users u ON c.connected_user_id = u.user_id 
                       WHERE c.user_id = :user_id AND c.status = 'accepted'";
             $stmt = $this->pdo->prepare($query);
@@ -387,6 +388,14 @@ class User {
         $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM Users WHERE email = :email");
         $stmt->execute([':email' => $email]);
         return $stmt->fetchColumn() > 0;
+    }
+
+    public function isloggedin(){
+        if(isset($_SESSION['user_id'])){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 ?>
