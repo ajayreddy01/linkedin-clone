@@ -43,6 +43,7 @@ class User {
             $user = $stmt->fetch(PDO::FETCH_OBJ);
             if ($user && password_verify($password, $user->password_hash)) {
                 $_SESSION['user_id'] = $user->user_id;
+                $_SESSION['user_data'] = $user;
                 return ['success' => true, 'user_id' => $user->user_id, 'message' => 'Login successful'];
             }
             return ['success' => false, 'message' => 'Invalid email or password'];
